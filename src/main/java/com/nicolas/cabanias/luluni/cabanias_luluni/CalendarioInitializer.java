@@ -52,7 +52,7 @@ public class CalendarioInitializer implements CommandLineRunner {
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         };
 
-        Path fotoPath = Path.of("C:\\Users\\nicolas.agosti.DIR\\Desktop\\CabaniasLuluni\\cabanias-luluni\\src\\main\\java\\com\\nicolas\\cabanias\\luluni\\cabanias_luluni\\utils\\fotocabania.png");
+        Path fotoPath = Path.of("C:\\Users\\nicolas.agosti.DIR\\Desktop\\CabaniasLuluni\\back\\src\\main\\java\\com\\nicolas\\cabanias\\luluni\\cabanias_luluni\\utils\\fotocabania.png");
         byte[] fotoBytes = Files.readAllBytes(fotoPath);
 
         for (int c = 0; c < nombresCalendarios.length; c++) {
