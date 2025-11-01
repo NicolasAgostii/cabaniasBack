@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Foto;
 import com.nicolas.cabanias.luluni.cabanias_luluni.services.FotoService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/fotos")
 @RequiredArgsConstructor
