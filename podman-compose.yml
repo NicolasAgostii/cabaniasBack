@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  cabanias-back:
+    build: .
+    container_name: cabanias-back
+    ports:
+      - "8080:8080"
+    environment:
+      # Variables que Spring Boot tomará desde application.properties
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/cabaniasdb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Root123!
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+    depends_on:
+      - mysql-db
+    # Espera hasta que la DB esté lista antes de iniciar (opcional pero recomendable)
+    restart: on-failure
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Root123!
+      MYSQL_DATABASE: cabaniasdb
+      MYSQL_ROOT_HOST: '%'   # Permite conexiones desde el contenedor del backend
+    ports:
+      - "3307:3306"   # Exponé MySQL en localhost:3307 si querés conectarte desde tu host
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
