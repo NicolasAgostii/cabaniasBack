@@ -1,20 +1,24 @@
 package com.nicolas.cabanias.luluni.cabanias_luluni;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Anio;
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Calendario;
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Cabania;
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Dia;
+import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Foto;
 import com.nicolas.cabanias.luluni.cabanias_luluni.entities.Mes;
 import com.nicolas.cabanias.luluni.cabanias_luluni.repositories.CalendarioRepository;
 import com.nicolas.cabanias.luluni.cabanias_luluni.repositories.CabaniaRepository;
+import com.nicolas.cabanias.luluni.cabanias_luluni.repositories.FotoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +28,7 @@ public class CalendarioInitializer implements CommandLineRunner {
 
     private final CalendarioRepository calendarioRepository;
     private final CabaniaRepository cabaniaRepository;
+    private final FotoRepository fotoRepository;
 
     @Override
     public void run(String... args) throws IOException {
@@ -46,6 +51,12 @@ public class CalendarioInitializer implements CommandLineRunner {
                 "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         };
+
+        // Cargamos la imagen desde resources una sola vez
+        byte[] imagenBytes;
+        try (InputStream inputStream = new ClassPathResource("fotocabania.png").getInputStream()) {
+            imagenBytes = inputStream.readAllBytes();
+        }
 
         for (int c = 0; c < nombresCalendarios.length; c++) {
 
@@ -89,6 +100,12 @@ public class CalendarioInitializer implements CommandLineRunner {
             cabania.setCapacidad(4 + c);
             cabania.setPrecio(10000 + c * 2000);
             cabaniaRepository.save(cabania);
+
+            // Crear y asociar la foto correctamente
+            Foto foto = new Foto();
+            foto.setData(imagenBytes);
+            foto.setCabania(cabania);
+            fotoRepository.save(foto);
         }
     }
 }
