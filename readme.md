@@ -1,0 +1,18 @@
+## Application.properties de produccion (Railway) ## 
+spring.application.name=cabanias-luluni
+
+# 🔹 La URL ya no apunta a localhost, sino al nombre del servicio definido en podman-compose.yml
+spring.datasource.url=${SPRING_DATASOURCE_URL}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# 🔹 Control de esquema (usa update para persistir datos entre reinicios)
+spring.jpa.hibernate.ddl-auto=${SPRING_JPA_HIBERNATE_DDL_AUTO}
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+
+# 🔹 Límite de archivos
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
