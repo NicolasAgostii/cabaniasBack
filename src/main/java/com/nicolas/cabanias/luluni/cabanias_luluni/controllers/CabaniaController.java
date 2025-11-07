@@ -13,10 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = {
-        "https://cabaniasfront.netlify.app",
-        "http://localhost:5173"
-})
+
 @RestController
 @RequestMapping("/api/cabanias")
 @RequiredArgsConstructor
