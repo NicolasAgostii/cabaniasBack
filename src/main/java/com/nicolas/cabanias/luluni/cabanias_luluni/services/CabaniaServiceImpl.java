@@ -18,6 +18,10 @@ public class CabaniaServiceImpl implements CabaniaService {
         return cabaniaRepository.save(cabania);
     }
 
+    public List<Cabania> findAllWithFotos() {
+        return cabaniaRepository.findAllWithFotos();
+    }
+
     @Override
     public List<Cabania> obtenerTodas() {
         return cabaniaRepository.findAll();

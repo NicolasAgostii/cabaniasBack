@@ -7,4 +7,5 @@ import java.util.List;
 public interface CabaniaService {
     Cabania crearCabania(Cabania cabania);
     List<Cabania> obtenerTodas();
+    List<Cabania> findAllWithFotos();
 }
